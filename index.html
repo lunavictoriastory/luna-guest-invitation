@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Social Media / Messenger Preview -->
+<meta property="og:title" content="Luna Victoria’s Christening & 1st Birthday Celebration ✨">
+<meta property="og:description" content="You’re invited to celebrate a very special day with Luna Victoria. 🤍">
+
+<meta property="og:image" content="https://lunavictoriastory.github.io/luna-guest-invitation/luna-preview.jpg">
+<meta property="og:image:secure_url" content="https://lunavictoriastory.github.io/luna-guest-invitation/luna-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Luna Victoria’s Christening and 1st Birthday Celebration">
+
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Luna Victoria’s Christening & 1st Birthday Celebration ✨">
+<meta name="twitter:description" content="You’re invited to celebrate a very special day with Luna Victoria. 🤍">
+<meta name="twitter:image" content="https://lunavictoriastory.github.io/luna-guest-invitation/luna-preview.jpg">
+<title>Luna Victoria's Invitation</title>
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    min-height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at center, #fffdf8 0%, #f4ecdc 62%, #e8dcc5 100%);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.book-wrapper {
+    position: relative;
+    width: min(92vw, 512px);
+    aspect-ratio: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 18px 22px rgba(68, 48, 27, .24));
+}
+
+/* Decorative physical-book backing. Kept behind StPageFlip so it cannot block swipes. */
+.book-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 5px -7px -9px 5px;
+    border-radius: 5px 13px 13px 5px;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            #fff9e8 0px,
+            #fff9e8 2px,
+            #e6d6ac 3px,
+            #fff9e8 4px
+        );
+    border-right: 4px solid #b88b35;
+    border-bottom: 4px solid #c49b4c;
+    box-shadow:
+        6px 7px 0 rgba(160, 119, 48, .30),
+        0 20px 35px rgba(55, 37, 20, .18);
+    pointer-events: none;
+}
+
+#book {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.page {
+    position: relative;
+    overflow: hidden;
+    background: #fffdf7;
+}
+
+.page video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.rsvp-yes,
+.rsvp-no {
+    position: absolute;
+    z-index: 1000;
+    cursor: pointer;
+    display: block;
+}
+
+.rsvp-yes {
+    left: 24%;
+    top: 48.7%;
+    width: 52%;
+    height: 6.2%;
+}
+
+.rsvp-no {
+    left: 24%;
+    top: 57.3%;
+    width: 52%;
+    height: 6.2%;
+}
+
+/* First-page instruction */
+.open-hint {
+    position: fixed;
+    left: 50%;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 16px;
+    white-space: nowrap;
+    color: #755522;
+    background: rgba(255, 250, 238, .94);
+    border: 1px solid rgba(178, 136, 54, .48);
+    border-radius: 999px;
+    box-shadow: 0 5px 16px rgba(61, 42, 21, .14);
+    font-size: 13px;
+    letter-spacing: .35px;
+    pointer-events: none;
+    transition: opacity .45s ease, transform .45s ease;
+}
+
+.open-hint.hide {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+}
+
+.swipe-arrow {
+    display: inline-block;
+    font-size: 18px;
+    animation: swipeLeft 1.35s ease-in-out infinite;
+}
+
+@keyframes swipeLeft {
+    0%, 100% { transform: translateX(5px); opacity: .45; }
+    50% { transform: translateX(-5px); opacity: 1; }
+}
+
+/* A subtle corner cue makes the cover visibly turnable on phones. */
+.corner-cue {
+    position: fixed;
+    right: max(4vw, 14px);
+    bottom: max(66px, calc(env(safe-area-inset-bottom) + 64px));
+    z-index: 9998;
+    width: 34px;
+    height: 34px;
+    pointer-events: none;
+    opacity: .78;
+    transition: opacity .35s ease;
+}
+
+.corner-cue::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 28px solid transparent;
+    border-top: 28px solid rgba(200, 164, 87, .82);
+    filter: drop-shadow(-2px -2px 2px rgba(70, 48, 23, .16));
+    transform-origin: bottom right;
+    animation: liftCorner 1.8s ease-in-out infinite;
+}
+
+.corner-cue.hide {
+    opacity: 0;
+}
+
+@keyframes liftCorner {
+    0%, 100% { transform: scale(.78) rotate(0deg); }
+    50% { transform: scale(1) rotate(-6deg); }
+}
+
+@media (min-width: 601px) {
+    .corner-cue {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .book-wrapper {
+        width: min(91vw, 480px);
+    }
+}
+
+/* Elegant storybook page progress */
+.page-progress {
+    position: fixed;
+    left: 50%;
+    top: max(12px, env(safe-area-inset-top));
+    transform: translateX(-50%);
+    z-index: 9999;
+    min-width: 74px;
+    padding: 7px 13px;
+    text-align: center;
+    white-space: nowrap;
+    color: #755522;
+    background: rgba(255, 250, 238, .94);
+    border: 1px solid rgba(178, 136, 54, .48);
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(61, 42, 21, .12);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    letter-spacing: .55px;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+.page-progress .ornament {
+    color: #b18a3e;
+    padding: 0 5px;
+}
+
+@media (max-height: 650px) {
+    .page-progress {
+        top: max(6px, env(safe-area-inset-top));
+        padding: 5px 11px;
+        font-size: 11px;
+    }
+}
+
+
+.magic-layer{display:none !important}
+.magic-spark{position:absolute;left:50%;top:50%;width:var(--size);height:var(--size);opacity:0;transform:translate(-50%,-50%) scale(.15);animation:magicBurst var(--duration) ease-out var(--delay) forwards;filter:drop-shadow(0 0 7px rgba(255,220,110,.95))}
+.magic-spark:before,.magic-spark:after{content:"";position:absolute;inset:0;background:linear-gradient(#fff,#ffe9a2 45%,#c99532);border-radius:100% 0 100% 0}
+.magic-spark:after{transform:rotate(90deg)}
+.magic-dot{border-radius:50%;background:radial-gradient(circle,#fff 0 18%,#fff0a8 30%,#d4a13b 60%,transparent 72%)}
+.magic-dot:before,.magic-dot:after{display:none}
+@keyframes magicBurst{
+0%{opacity:0;transform:translate(-50%,-50%) translate(0,0) scale(.1) rotate(0)}
+15%{opacity:1}
+50%{opacity:1;transform:translate(-50%,-50%) translate(calc(var(--x)*.58),calc(var(--y)*.58)) scale(1.25) rotate(120deg)}
+100%{opacity:0;transform:translate(-50%,-50%) translate(var(--x),var(--y)) scale(.2) rotate(230deg)}
+}
+.magic-flash{position:absolute;left:50%;top:50%;width:min(80vw,460px);aspect-ratio:1;border-radius:50%;opacity:0;background:radial-gradient(circle,rgba(255,255,255,.78),rgba(255,234,158,.42) 24%,rgba(225,177,72,.14) 48%,transparent 72%);animation:magicFlash 1.15s ease-out forwards}
+@keyframes magicFlash{0%{opacity:0;transform:translate(-50%,-50%) scale(.12)}18%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)}}
+
+
+/* =========================================
+   CINEMATIC WHITE FAIRY DUST — INSIDE BOOK
+   Fine, soft, movie-like sparkle particles.
+   ========================================= */
+.book-magic {
+    position: absolute;
+    inset: 0;
+    z-index: 2500;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 4px 12px 12px 4px;
+}
+
+.book-twinkle {
+    position: absolute;
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    opacity: 0;
+    background: radial-gradient(
+        circle,
+        rgba(255,255,255,1) 0 18%,
+        rgba(245,248,255,.95) 22%,
+        rgba(225,232,242,.58) 45%,
+        rgba(255,255,255,0) 72%
+    );
+    filter: drop-shadow(0 0 2px rgba(255,255,255,.9))
+            drop-shadow(0 0 5px rgba(235,242,255,.48));
+    animation: cinematicBlink var(--t) ease-in-out var(--d) infinite;
+}
+
+.book-twinkle.star {
+    border-radius: 0;
+    background: none;
+}
+
+.book-twinkle.star::before,
+.book-twinkle.star::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,.96) 42%,
+        #fff 50%,
+        rgba(255,255,255,.96) 58%,
+        rgba(255,255,255,0)
+    );
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    filter: blur(.15px);
+}
+
+.book-twinkle.star::before {
+    width: 1.4px;
+    height: 100%;
+}
+
+.book-twinkle.star::after {
+    width: 100%;
+    height: 1.4px;
+}
+
+@keyframes cinematicBlink {
+    0%, 100% { opacity: 0; transform: scale(.25); }
+    18% { opacity: .18; }
+    38% { opacity: .72; transform: scale(.7); }
+    48% { opacity: 1; transform: scale(1); }
+    60% { opacity: .4; transform: scale(.72); }
+    78% { opacity: .82; }
+}
+
+/* Fine dust that sweeps across the page after opening */
+.trail-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    opacity: 0;
+    background: radial-gradient(
+        circle,
+        #fff 0 20%,
+        rgba(248,250,255,.92) 30%,
+        rgba(225,232,242,.42) 55%,
+        transparent 74%
+    );
+    filter: drop-shadow(0 0 3px rgba(255,255,255,.7));
+    animation: cinematicDust 1.75s ease-out var(--delay) forwards;
+}
+
+.trail-dot.bright {
+    border-radius: 0;
+    background: none;
+}
+
+.trail-dot.bright::before,
+.trail-dot.bright::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: linear-gradient(
+        transparent,
+        rgba(255,255,255,.95),
+        #fff,
+        rgba(255,255,255,.95),
+        transparent
+    );
+    transform: translate(-50%,-50%);
+}
+
+.trail-dot.bright::before { width: 1px; height: 100%; }
+.trail-dot.bright::after  { width: 100%; height: 1px; }
+
+@keyframes cinematicDust {
+    0% {
+        opacity: 0;
+        transform: translate(-50%,-50%) translate(var(--sx),var(--sy)) scale(.15);
+    }
+    20% { opacity: .25; }
+    42% { opacity: .95; }
+    72% {
+        opacity: .72;
+        transform: translate(-50%,-50%) translate(var(--mx),var(--my)) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%,-50%) translate(var(--ex),var(--ey)) scale(.3);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="magic-layer" id="magicLayer" aria-hidden="true"></div>
+
+<div class="book-wrapper">
+    <div class="book-magic" id="bookMagic" aria-hidden="true"></div>
+    <div id="book">
+        <div class="page"><video src="page1.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="page"><video src="page2.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="page"><video src="page3.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="page"><video src="page4.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="page"><video src="page5.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="page"><video src="page6.mp4" muted playsinline preload="metadata"></video></div>
+
+        <div class="page">
+            <video src="page7.mp4" muted playsinline preload="metadata"></video>
+            <a class="rsvp-yes"
+               href="https://script.google.com/macros/s/AKfycbzqy3SWwhwMpEoDOAHZSm8Sshvpsmir-DmTvdmbeEdl-tTq4Pl36XndYymhe5zAzDuNIQ/exec"
+               target="_blank"
+               rel="noopener"
+               aria-label="Yes, I'll be there"></a>
+            <a class="rsvp-no"
+               href="https://script.google.com/macros/s/AKfycbzqy3SWwhwMpEoDOAHZSm8Sshvpsmir-DmTvdmbeEdl-tTq4Pl36XndYymhe5zAzDuNIQ/exec"
+               target="_blank"
+               rel="noopener"
+               aria-label="Sorry, I can't make it"></a>
+        </div>
+
+        <div class="page"><video src="page8.mp4" muted playsinline preload="metadata"></video></div>
+    </div>
+</div>
+
+<div class="page-progress" id="pageProgress" aria-live="polite">
+    <span class="ornament">✦</span>
+    <span id="pageProgressText">1 / 8</span>
+    <span class="ornament">✦</span>
+</div>
+
+<div class="open-hint" id="openHint">
+    <span class="swipe-arrow">❮</span>
+    <span>Swipe to open the storybook</span>
+</div>
+
+<div class="corner-cue" id="cornerCue" aria-hidden="true"></div>
+
+<script>
+const magicLayer = document.getElementById("magicLayer");
+const bookMagic = document.getElementById("bookMagic");
+const bookElement = document.getElementById("book");
+const pageElements = document.querySelectorAll(".page");
+const videos = document.querySelectorAll(".page video");
+const openHint = document.getElementById("openHint");
+const cornerCue = document.getElementById("cornerCue");
+const pageProgressText = document.getElementById("pageProgressText");
+
+const pageFlip = new St.PageFlip(bookElement, {
+    width: 512,
+    height: 768,
+    size: "stretch",
+    minWidth: 280,
+    maxWidth: 512,
+    minHeight: 420,
+    maxHeight: 768,
+    maxShadowOpacity: 0.45,
+    showCover: true,
+    mobileScrollSupport: false,
+    flippingTime: 800,
+    usePortrait: true,
+    drawShadow: true,
+    useMouseEvents: true
+});
+
+pageFlip.loadFromHTML(pageElements);
+
+function stopAllVideos() {
+    videos.forEach(video => {
+        video.pause();
+    });
+}
+
+function playCurrentVideo() {
+    stopAllVideos();
+
+    const current = pageFlip.getCurrentPageIndex();
+    const video = videos[current];
+
+    if (!video) return;
+
+    try {
+        video.currentTime = 0;
+    } catch (error) {}
+
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // Muted video normally autoplays. If a browser blocks it,
+            // the first user swipe/tap will trigger another play attempt.
+        });
+    }
+}
+
+function updatePageProgress() {
+    const current = pageFlip.getCurrentPageIndex() + 1;
+    const total = videos.length;
+
+    if (!pageProgressText) return;
+
+    if (current === total) {
+        pageProgressText.textContent = `${current} / ${total} · End of Invitation`;
+    } else {
+        pageProgressText.textContent = `${current} / ${total}`;
+    }
+}
+
+
+
+function seedBookTwinkles() {
+    if (!bookMagic) return;
+
+    /* Fine white/silver sparkles scattered over the actual book. */
+    for (let i = 0; i < 58; i++) {
+        const p = document.createElement("span");
+        p.className = (i % 9 === 0)
+            ? "book-twinkle star"
+            : "book-twinkle";
+
+        p.style.left = `${4 + Math.random() * 92}%`;
+        p.style.top = `${5 + Math.random() * 90}%`;
+
+        const size = (i % 9 === 0)
+            ? 8 + Math.random() * 9
+            : 2 + Math.random() * 5;
+
+        p.style.setProperty("--s", `${size}px`);
+        p.style.setProperty("--t", `${2.1 + Math.random() * 4.2}s`);
+        p.style.setProperty("--d", `${-Math.random() * 6}s`);
+
+        bookMagic.appendChild(p);
+    }
+}
+
+function castFairyTrail() {
+    if (!bookMagic) return;
+
+    bookMagic.querySelectorAll(".trail-dot").forEach(el => el.remove());
+
+    /* Dense but delicate white dust, like a cinematic fairy-magic sweep. */
+    const count = 92;
+
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement("span");
+        p.className = (i % 13 === 0)
+            ? "trail-dot bright"
+            : "trail-dot";
+
+        const t = i / (count - 1);
+        const jitterX = (Math.random() - .5) * 42;
+        const jitterY = (Math.random() - .5) * 54;
+
+        /* Broad soft S-curve across the book. */
+        const sx = -190 + jitterX;
+        const sy = 70 + jitterY;
+
+        const mx = -120 + 245*t + Math.sin(t*Math.PI*2.15)*64 + jitterX*.55;
+        const my = 28 - 92*t + Math.sin(t*Math.PI*1.75)*48 + jitterY*.55;
+
+        const ex = -175 + 350*t + jitterX;
+        const ey = 45 - 55*t + Math.sin(t*Math.PI*2.05)*66 + jitterY;
+
+        p.style.setProperty("--sx", `${sx}px`);
+        p.style.setProperty("--sy", `${sy}px`);
+        p.style.setProperty("--mx", `${mx}px`);
+        p.style.setProperty("--my", `${my}px`);
+        p.style.setProperty("--ex", `${ex}px`);
+        p.style.setProperty("--ey", `${ey}px`);
+        p.style.setProperty("--s", `${2 + Math.random()*5}px`);
+        p.style.setProperty("--delay", `${Math.random()*260}ms`);
+
+        bookMagic.appendChild(p);
+    }
+
+    setTimeout(() => {
+        bookMagic.querySelectorAll(".trail-dot").forEach(el => el.remove());
+    }, 2400);
+}
+
+function castPageMagic(isCoverOpening = false) {
+    if (!magicLayer) return;
+    magicLayer.replaceChildren();
+    const flash=document.createElement("div");
+    flash.className="magic-flash";
+    magicLayer.appendChild(flash);
+    const amount=isCoverOpening?44:32;
+    for(let i=0;i<amount;i++){
+        const s=document.createElement("span");
+        s.className=(i%4===0)?"magic-spark magic-dot":"magic-spark";
+        const a=(Math.PI*2*i/amount)+(Math.random()*.35);
+        const d=(isCoverOpening?165:135)+Math.random()*145;
+        s.style.setProperty("--x",`${Math.cos(a)*d}px`);
+        s.style.setProperty("--y",`${Math.sin(a)*d*.72}px`);
+        s.style.setProperty("--size",`${8+Math.random()*18}px`);
+        s.style.setProperty("--delay",`${Math.random()*180}ms`);
+        s.style.setProperty("--duration",`${1300+Math.random()*600}ms`);
+        magicLayer.appendChild(s);
+    }
+    setTimeout(()=>magicLayer.replaceChildren(),2300);
+}
+
+function hideOpeningCues() {
+    if (openHint) openHint.classList.add("hide");
+    if (cornerCue) cornerCue.classList.add("hide");
+}
+
+/* Try the cover animation immediately. */
+window.addEventListener("load", () => {
+    seedBookTwinkles();
+    updatePageProgress();
+    setTimeout(playCurrentVideo, 250);
+});
+
+/* A user gesture also guarantees another playback attempt on stricter mobile browsers. */
+document.addEventListener("pointerdown", () => {
+    const current = pageFlip.getCurrentPageIndex();
+    const video = videos[current];
+
+    if (video && video.paused && video.currentTime === 0) {
+        video.play().catch(() => {});
+    }
+}, { passive: true });
+
+pageFlip.on("flip", () => {
+    const openedPage = pageFlip.getCurrentPageIndex();
+    hideOpeningCues();
+    updatePageProgress();
+    castFairyTrail();
+    setTimeout(playCurrentVideo, 150);
+});
+</script>
+
+</body>
+</html>
